@@ -57,6 +57,6 @@ function im = noiseonf(sze, factor)
     % spectrum
     newfft =  filter .* phase; 
     im = real(ifft2(fftshift(newfft))); % Invert to obtain final noise image
-
+end
 %caption = sprintf('noise with 1/(f^%2.1f) amplitude spectrum',factor);
 %imagesc(im), axis('equal'), axis('off'), title(caption);

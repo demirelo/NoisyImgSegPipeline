@@ -14,12 +14,6 @@ function [noisy2DSlice,filename] = noiseSim2D(I, gt_filename, choice, level, isW
 %
 % Copyright: Omer Demirel (omerddd@gmail.com), University of Zurich, 2015
 
-% I = imread(gt_filename);
-% always add speckle and salt & pepper noise
-% I = uint8(im2bw(I,0.001));
-% I(I==1) = 255;
-
-% figure, imshow(I)
 if ~strcmp(choice,'cloudy') && ~strcmp(choice,'normal')
     error('Unknown CHOICE of noise')
 elseif level<=0
@@ -29,7 +23,6 @@ end
 I = imcomplement(I);
 speckle = level * 0.3;
 sp = speckle/2;
-% I(I>0)=255;
 
 % normal noise is always added
 L_skel = imnoise(I,'speckle',speckle);
@@ -39,18 +32,15 @@ L_sp = imgaussfilt(L_sp, 1.0);
 L_skel = imgaussfilt(L_skel, 1.2);
 L_sp = L_skel+L_sp;
 
-% figure,imshow(imadjust(L_sp))
-if strcmp(choice,'cloudy') %add cloud noise as well
+% add cloud noise as well
+if strcmp(choice,'cloudy') 
     
     % cloudy background noise
     h = 0.8;
     grayImage = noiseonf(size(I,1), h);
     grayImage8bit = uint8(255 * mat2gray(grayImage));
-    assignin('base','L_sp',L_sp)
+    assignin('base','L_sp',L_sp);
     L_sp = L_sp + grayImage8bit;
-    %     figure,imshow(imadjust(L_sp))
-end
-if choice==2
     filename = [gt_filename(4:length(gt_filename)-4) '_' int2str(specklename) 'sp_cloudy.tif'];
 else
     filename = [gt_filename(4:length(gt_filename)-4) '_' int2str(specklename) 'sp.tif'];
@@ -59,7 +49,7 @@ if isWriting==1
     if exist(filename, 'file')==2
         delete(filename);
     end
-    imwrite(imadjust(L_sp),filename)
+    imwrite(imadjust(L_sp),filename);
 else
     noisy2DSlice = imadjust(L_sp);
 end

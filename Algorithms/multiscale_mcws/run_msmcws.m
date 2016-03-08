@@ -43,9 +43,14 @@ if exist(outputFileName, 'file')==2
     delete(outputFileName);
 end
 cd('../../Algorithms/multiscale_mcws/results')
-for K=1:length(label_i(1, 1, :))
-    label = label_i(:, :, K);
-    label = im2bw(~label,0.95);
+if length(sizeI)==3
+    for K=1:size(label_i,3)
+        label = label_i(:, :, K);
+        label = im2bw(~label,0.95);
+        imwrite(label, outputFileName, 'WriteMode', 'append','Compression','none');
+    end
+else
+    label = im2bw(~label_i,0.95);
     imwrite(label, outputFileName, 'WriteMode', 'append','Compression','none');
 end
 cd('../../../Noise/test_images')

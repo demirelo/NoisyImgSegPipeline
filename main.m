@@ -1,4 +1,4 @@
-function I = main(imsize, numCells, batchSize, cellRoughness, writeRGB)
+function main(imsize, numCells, batchSize, cellRoughness, writeRGB)
 
 %MAIN generates 2D/3D synthetic (ground truth) images for membrane-based 
 % segmentation, adds noise to them, and runs selected segmentation algorithms on these generated
@@ -6,7 +6,7 @@ function I = main(imsize, numCells, batchSize, cellRoughness, writeRGB)
 % 
 %
 % Example:
-%   main([256 256 50], 150, 2, 3, 1)
+%   main([128 128 20], 100, 2, 3, 1)
 %
 % IN:
 %   imsize        - size of the to-be generated image: exp: [512 512]. If
@@ -41,7 +41,7 @@ end
 cd GTGen
 disp('New ground truth images are being created...')
 I_GT = GTGen(imsize, numCells, batchSize, cellRoughness, writeRGB);
-assignin('base','I_GT',I_GT)
+assignin('base','I_GT',I_GT);
 disp('                                         ... done!')
 %% add noise.
 allGt = dir('*_label.tif');
@@ -49,7 +49,7 @@ gt_folder = pwd;
 disp('Noise is being added...')
 for i=1:length(allGt)
     cd(gt_folder)
-    I = noiseSim(allGt(i).name,'cloudy',1.8); 
+    noiseSim(allGt(i).name,'cloudy',1.8); 
 end
 disp('                    ... done!')
 %% run algorithms
@@ -62,10 +62,10 @@ if isempty(allTest)
 end
 testdata_folder = pwd;
 disp('(1) marker-controlled watershed...')
-paramSweep_mcws(testdata_folder)
+paramSweep_mcws(testdata_folder);
 disp('                               ... done!')
 % multiscale marker-controlled watershed
 disp('(2) multiscale marker-controlled watershed...')
-paramSweep_msmcw(testdata_folder)
-disp('                                         ... done!')
-cd('../../GTGen/gt_images');
+paramSweep_msmcw(testdata_folder);
+disp('                                          ... done!')
+cd('../../');

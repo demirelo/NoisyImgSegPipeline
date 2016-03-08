@@ -19,14 +19,12 @@ elseif level<=0
     error('noise level must be >0')
 end
 I = read3D(gt_filename);
-% I_struct = load(gt_filename);
-% I = cell2mat(struct2cell(I_struct));
-% % I = uint8(255 * mat2gray(I));
-assignin('base','I',I)
+assignin('base','I',I);
+
 % always add speckle and salt & pepper noise
 if ndims(I)==3
     for s=1:size(I,3)
-%         figure, imshow(I(:,:,s));
+        
         L = I(:,:,s);
         [L_noisy,filename] = noiseSim2D(L,gt_filename,choice,level,0);
         I(:,:,s) = L_noisy;

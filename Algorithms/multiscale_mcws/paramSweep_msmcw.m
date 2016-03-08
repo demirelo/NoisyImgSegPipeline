@@ -12,12 +12,12 @@ parfor i=1:numel(allTiffs)
                 s3 = sigma3*sigma2;
                 sigmaVec = [sigma s2 s3];
                 for h=2:2:4
-                    run_msmcws(filename,sigmaVec,h)
+                    run_msmcws(filename,sigmaVec,h);
                 end
             end
         end  
     end
-    disp(['.... ' num2str(i) ' of ' num2str(numel(allTiffs)) ' is done!']);
+    disp(['.... ' num2str(i) ' of ' num2str(numel(allTiffs))]);
 end
 end
 
