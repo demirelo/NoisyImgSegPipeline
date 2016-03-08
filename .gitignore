@@ -3,4 +3,8 @@ compareAlgorithms.m
 
 read3DRGB.m
 
-*.tif
+Algorithms/mcws/results/*.tif
+Algorithms/multiscale_mcws/results/*.tif
+GTGen/gt_images/*.tif
+Noise/test_images/*.tif
+
