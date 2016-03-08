@@ -1,5 +1,4 @@
 function main(imsize, numCells, batchSize, cellRoughness, writeRGB)
-
 %MAIN generates 2D/3D synthetic (ground truth) images for membrane-based 
 % segmentation, adds noise to them, and runs selected segmentation algorithms on these generated
 % test images.
