@@ -1,13 +1,23 @@
-% Dr. Omer Demirel - 05/2015,
-% Multiscale Marker-controlled Watershed segmentation,
-% University of Zurich. oemer.demirel@uzh.ch
-%
-% In multiscale marker-controlled watershed segmentation (MSMCW), we generate two watershed
+function [] = run_msmcws(filename,sigmaVec,h)
+%RUN_MSMCWS runs a multiscale watershed segmentation algorithm
+% In multiscale marker-controlled watershed segmentation (MSMCW), we generate two (or more) watershed
 % segmentations with different Gaussian kernel widths. 2nd level, which has
 % more segmented regions than the 1st one, is used to correct the borders
 % in the first scale. This means that MSMCW has to get the number of regions
 % correct in the first scale.
-function [] = run_msmcws(filename,sigmaVec,h)
+%
+% Example:
+%   run_msmcws(filename,[0.8 0.5 0.2],2)
+%
+% IN:
+%   filename - the full path to the GT image that will be noised.
+%   sigmaVec - a vector of Gaussian kernel widths used for blurring. It defines the number of scales and 
+%              the sigma value in each scale in watershed segmentation. As we go deeper down the scales,
+%              sigma value becomes smaller. Thus, sigmaVec(1)>sigmaVec(2)>...
+%   h        - a scalar used for h-minima transform
+%
+% Copyright: Omer Demirel (omerddd@gmail.com), University of Zurich, 2015
+
 I = read3D(filename);
 label_i = msmcws3d(I,sigmaVec,h);
 warning('off','all')
@@ -39,6 +49,4 @@ for K=1:length(label_i(1, 1, :))
     imwrite(label, outputFileName, 'WriteMode', 'append','Compression','none');
 end
 cd('../../../Noise/test_images')
-% cd('/Users/demirelo/Documents/Work/ScienceCloud/Segmentation/automatedPipeline/Algorithms/')
-% cd(folder)
 end

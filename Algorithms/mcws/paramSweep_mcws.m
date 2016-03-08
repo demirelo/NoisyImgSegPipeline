@@ -1,6 +1,6 @@
 function paramSweep_mcws(folder)
-%PARAMETERSWEEP_MSMCW Summary of this function goes here
-%   Detailed explanation goes here
+%PARAMETERSWEEP_MSMCW can be used to see which sigma and h combination
+%works best for the datasets at hand. 
 cd(folder);
 allTiffs = dir('*.tif');
 for i=1:numel(allTiffs)

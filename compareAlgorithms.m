@@ -115,6 +115,3 @@ for ii=1:length(allGTFiles)
     end
     
 end
-
-cd('/Users/demirelo/Documents/Work/ScienceCloud/Segmentation/automatedPipeline/GTGen/gt_images');
-% end

@@ -4,6 +4,20 @@
 %
 % This is the simple, single scale watershed segmentation 
 function [] = run_mcws(filename,sigma,h)
+%RUN_MCWS runs a simple (single-scale) marker-controlled watershed segmentation
+%
+% Example:
+%   run_mcws(filename,0.8,2)
+%
+% IN:
+%   I        - noisy image to be segmented
+%   sigmaVec - a vector of Gaussian kernel widths used for blurring. It defines the number of scales and 
+%              the sigma value in each scale in watershed segmentation. As we go deeper down the scales,
+%              sigma value becomes smaller. Thus, sigmaVec(1)>sigmaVec(2)>...
+%   h        - a scalar used for h-minima transform
+%
+% Copyright: Omer Demirel (omerddd@gmail.com), University of Zurich, 2015
+
 I = read3D(filename);
 label_i = mcws3d(I,sigma,h);
 
@@ -24,7 +38,7 @@ else
 end
 
 % write results
-%% black & white TIF output
+%% black & white TIFF output
 label_i(label_i~=0)=10000;
 % label_i = im2bw(label_i, 0.95);
 outputFileName = ['single_ws_' filename '_s' num2str(sigma) '_h' num2str(h) '.tif'];

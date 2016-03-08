@@ -1,24 +1,30 @@
-% Dr. Omer Demirel - 05/2015,
-% Multiscale Marker-controlled Watershed segmentation, 
-% University of Zurich. oemer.demirel@uzh.ch
-% 
-% In multiscale marker-controlled watershed segmentation (MSMCW), we generate two watershed
+function merged_label = msmcws3d(I,sigmaVec,h)
+%MSMCWS3D runs a two-scale watershed segmentation algorithm
+% In twoscale marker-controlled watershed segmentation (MSMCW), we generate two watershed
 % segmentations with different Gaussian kernel widths. 2nd level, which has
 % more segmented regions than the 1st one, is used to correct the borders
-% in the first scale. This means that MSW has to get the number of regions
+% in the first scale. This means that MSMCW has to get the number of regions
 % correct in the first scale.
-function merged_label = msmcws3d(I,sigmaVec,h)
-% I: Input image
-% sigma: Gaussian kernel width
-% h: A scalar used for h-minima transform
 %
-% merged_label: Merged watershed result
+% Example:
+%   msmcws3d(I,[0.8 0.5 0.2],2)
+%
+% IN:
+%   I        - noisy image to be segmented
+%   sigmaVec - a vector of Gaussian kernel widths used for blurring. It defines the number of scales and 
+%              the sigma value in each scale in watershed segmentation. As we go deeper down the scales,
+%              sigma value becomes smaller. Thus, sigmaVec(1)>sigmaVec(2)>...
+%   h        - a scalar used for h-minima transform
+%
+% OUT:
+%   merged_label - merged watershed result
+% Copyright: Omer Demirel (omerddd@gmail.com), University of Zurich, 2015
+
 
 sizeI = size(I);
 numScales = length(sigmaVec);
 %% Create blurred images at different scales
 if length(sizeI)==3
-%     figure,imshow3Dfull(I);
     numZstacks = sizeI(3);
     blurred_scales = zeros(numScales,sizeI(1),sizeI(2),numZstacks);
     for i=1:numScales
@@ -98,6 +104,3 @@ for i=1:numScales-1
     end
     
 end
-
-%% categorize cells
-% segmentationClassifier(I,merged_label)
