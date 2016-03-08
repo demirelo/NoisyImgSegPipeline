@@ -1,5 +1,5 @@
 function merged_label = msmcws3d(I,sigmaVec,h)
-%MSMCWS3D runs a two-scale watershed segmentation algorithm
+%MSMCWS3D runs a multiscale watershed segmentation algorithm
 % In twoscale marker-controlled watershed segmentation (MSMCW), we generate two watershed
 % segmentations with different Gaussian kernel widths. 2nd level, which has
 % more segmented regions than the 1st one, is used to correct the borders
@@ -7,13 +7,13 @@ function merged_label = msmcws3d(I,sigmaVec,h)
 % correct in the first scale.
 %
 % Example:
-%   msmcws3d(I,[0.8 0.5 0.2],2)
+%   msmcws3d(I,[0.8 0.5],2)
 %
 % IN:
 %   I        - noisy image to be segmented
 %   sigmaVec - a vector of Gaussian kernel widths used for blurring. It defines the number of scales and 
 %              the sigma value in each scale in watershed segmentation. As we go deeper down the scales,
-%              sigma value becomes smaller. Thus, sigmaVec(1)>sigmaVec(2)>...
+%              sigma value becomes smaller. Thus, sigmaVec(1)>sigmaVec(2)>..
 %   h        - a scalar used for h-minima transform
 %
 % OUT:

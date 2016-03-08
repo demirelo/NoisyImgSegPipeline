@@ -31,7 +31,7 @@ if ndims(I)==3
         [L_noisy,filename] = noiseSim2D(L,gt_filename,choice,level,0);
         I(:,:,s) = L_noisy;
         if mod(s,5)==0
-            disp(['Noising...' num2str(s*100/size(I,3)) '% done']);
+            disp(['Noising image...' num2str(s*100/size(I,3)) '%...']);
         end   
         cd ../../Noise/test_images
         imwrite(I(:,:,s), filename, 'WriteMode', 'append');
@@ -40,3 +40,4 @@ else
     cd ../../Noise/test_images
     noiseSim2D(I,gt_filename,choice,level,1);
 end
+disp('Noising image completed...');

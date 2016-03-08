@@ -5,8 +5,8 @@ cd(folder);
 allTiffs = dir('*.tif');
 for i=1:numel(allTiffs)
     filename = allTiffs(i).name;
-    parfor sigma=4:1:11
-        for h=2:4
+    for sigma=4:2:11
+        parfor h=2:4
             run_mcws(filename,sigma,h)
         end
     end
