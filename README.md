@@ -14,7 +14,7 @@ If you have any questions or find issues, please let me know.
 
 ## Examples
 
-- Grount truth image: 
+- Ground truth image: 
 - ![Ground truth image](http://s14.postimg.org/ros75ydi5/gt_120cells_num1_label.jpg)
 - Noisy image
 - ![Noisy image](http://s24.postimg.org/lw7tayqr5/120cells_num1_label_2sp_cloudy.jpg)
